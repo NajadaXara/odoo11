@@ -105,18 +105,18 @@ class Lexues(models.Model):
         })
 
 
-    @api.multi
+    @api.model
     def _check_date(self):
-        for lexues in self:
-            #raise UserError(_("%s,%s,%s")%(  lexues.vlefshmeria ,fields.Datetime.now(),lexues.vlefshmeria < fields.Datetime.now()))
-            if lexues.vlefshmeria < fields.Datetime.now():
-                return lexues.write({'status':'skaduar'})
-            return True
+        now = datetime.now()
+        for lexues in self.env['biblioteka.lexues'].search([]):
+            if fields.Date.from_string(lexues.vlefshmeria) < date.today():
+                lexues.write({'status':'skaduar'})
+        return True
 
 
-    _constraints = [
-        (_check_date, 'Your Message!', ['date_regjistrimi', 'date_skadence']),
-    ]
+    #_constraints = [
+    #    (_check_date, 'Your Message!', ['date_regjistrimi', 'date_skadence']),
+    #]
 
 
 class Author(models.Model):
