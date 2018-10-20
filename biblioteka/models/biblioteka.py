@@ -32,7 +32,7 @@ class Librat(models.Model):
     sasi_gjendje = fields.Integer(string="State")
     informacion = fields.Char(string="About")
     disponueshmeria = fields.Boolean(string="Disponible", default=True)
-    rezervuar = fields.Char(string="Book Reservation")
+    #rezervuar = fields.Char(string="Book Reservation")
     rezervuar = fields.Selection([('available', 'Available'), ('non-available', 'Non-Available')],
                                  string="Book Reservation", default='available')
     liber_id = fields.Many2one('biblioteka.biblioteka', string="ID")
@@ -52,21 +52,21 @@ class Lexues(models.Model):
     date_cregjistrimi = fields.Date(string="Date Cregjistrimi")
     date_perjashtimi = fields.Date(string="Date Perjashtimi")
     status = fields.Selection([('draft', 'Draft'),('regjistruar', 'Regjistruar'), ('perjashtuar', 'Perjashtuar'), ('skaduar', 'Skaduar'), ('cregjistruar', 'Cregjistruar')], default='draft')
-    vlefshmeria = fields.Date(string="Vlefshmeria", compute='_compute_duedate')
+    vlefshmeria = fields.Date(string="Vlefshmeria") #, compute='_compute_duedate')
     afat_riregjistrimi = fields.Datetime(string="Riregjistrim")
 
-    @api.multi
-    def _compute_duedate(self):
-        d = date.fromordinal(730920)
-        datetime.date(datetime.today())
-        t=d.timetuple()
-        i=0
-        for i in t:
-            if i==1:
-                muaji=t(i)+1
-            if i==2:
-                dita=t(i)
-        self.vlefshmeria=datetime.date(2018,muaji,dita)
+#     @api.multi
+#     def _compute_duedate(self):
+#         d = date.fromordinal(730920)
+#         datetime.date(datetime.today())
+#         t=d.timetuple()
+#         i=0
+#         for i in t:
+#             if i==1:
+#                 muaji=t(i)+1
+#             if i==2:
+#                 dita=t(i)
+#         self.vlefshmeria=datetime.date(2018,muaji,dita)
 
 
     @api.multi
