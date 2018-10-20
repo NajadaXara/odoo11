@@ -32,7 +32,8 @@ class Librat(models.Model):
     sasi_gjendje = fields.Integer(string="State")
     informacion = fields.Char(string="About")
     disponueshmeria = fields.Boolean(string="Disponible", default=True)
-    rezervuar = fields.Char(string="Book Reservation")
+    #rezervuar = fields.Char(string="Book Reservation")
+    #Nuk duhet te kete 2 fusha me te njejtin emertim
     rezervuar = fields.Selection([('available', 'Available'), ('non-available', 'Non-Available')],
                                  string="Book Reservation", default='available')
     liber_id = fields.Many2one('biblioteka.biblioteka', string="ID")
@@ -113,7 +114,8 @@ class Lexues(models.Model):
                 return lexues.write({'status':'skaduar'})
             return True
 
-
+    #constraint-i sherben per qellimin e kontrollit dhe kufizimit nese plotesohet nje kusht i caktuar
+    #Therritje e funksionit te mesiperm sugjerohet me ir.cron
     _constraints = [
         (_check_date, 'Your Message!', ['date_regjistrimi', 'date_skadence']),
     ]
